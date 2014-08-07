@@ -1,11 +1,11 @@
- Notted
+ Noted
 ========
 
-Notted is a mobile application thet will provide a company's field agent with extra information about their surroundings.
+Noted is a mobile application thet will provide a company's field agent with extra information about their surroundings.
 
-![image](img/notted1.png)
+![image](img/Noted1.png)
 
-## What does *Notted* trying to solve?
+## What does *Noted* trying to solve?
 Imagine a company, **SoftDrinks Co.** that provides soft drinks to the majority of restaurants in Tel Aviv area.
 
 "SoftDrinks Co." has **5 salesmen** that making deals around town, and **3 truck drivers** that deliver the goods to each location on a weekly basis.
@@ -21,15 +21,15 @@ If a one of the salesman resign, it will be **very hard for a new employee** to 
 If there is an important knowledge a truck driver knows about a venue, it wouldn't be able to share with his/hers peers!
 
 ## How do we solve the problem?
-Introducing: **Notted**
+Introducing: **Noted**
 
-Notted is a mobile application that uses GPS location to help your company's field agents **communicate better**!
+Noted is a mobile application that uses GPS location to help your company's field agents **communicate better**!
 
-With notted, each employee could leave "notes" attached to each location on a map for other agents to read later.
+With Noted, each employee could leave "notes" attached to each location on a map for other agents to read later.
 
-If there is important note in your area, *Notted* will send you a notification about it!
+If there is important note in your area, *Noted* will send you a notification about it!
 
-![image](img/notted2.png)
+![image](img/Noted2.png)
 
 ## Features
 #### Mobile app
@@ -58,10 +58,10 @@ Both Apps useful to share knowledge and information by notes, and allows users t
 
 #### Differences:
 
-* **Notted** is Intended to companies and PopNotes is for everybody.
-* The notes in **Notted** is about tips and helpful information in work.
+* **Noted** is Intended to companies and PopNotes is for everybody.
+* The notes in **Noted** is about tips and helpful information in work.
 * The notes in **PopNotes** can be about everything even a song or a joke someone wrote to another and he wanted him to see in a place she is in. 
-* The manager in **PopNotes** is the user every user is responsible on his profile while in **Notted** there are managers that manage and control the system.
+* The manager in **PopNotes** is the user every user is responsible on his profile while in **Noted** there are managers that manage and control the system.
 
 ![image](img/browser.png)
 
