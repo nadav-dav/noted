@@ -3,7 +3,7 @@
 
 Noted is a mobile application thet will provide a company's field agent with extra information about their surroundings.
 
-![image](img/Noted1.png)
+![image](img/noted1.png)
 
 ## What does *Noted* trying to solve?
 Imagine a company, **SoftDrinks Co.** that provides soft drinks to the majority of restaurants in Tel Aviv area.
@@ -29,7 +29,7 @@ With Noted, each employee could leave "notes" attached to each location on a map
 
 If there is important note in your area, *Noted* will send you a notification about it!
 
-![image](img/Noted2.png)
+![image](img/noted2.png)
 
 ## Features
 #### Mobile app
