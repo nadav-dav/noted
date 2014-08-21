@@ -1,0 +1,17 @@
+{>"layouts/mobile"/}
+{<title}Noted{/title}
+
+
+{<model}
+    function AppViewModel() {
+        var self = this;
+        self.binded = ko.observable("Binding is working successfully!");
+    }
+    ko.applyBindings(new AppViewModel());
+{/model}
+
+
+{<body}
+    <h1 data-bind="text: binded"> Not working :( </h1>
+{/body}
+

@@ -1,0 +1,12 @@
+{
+  "name": "noted",
+  "dependencies": {
+    "requirejs": "^2.1.11",
+    "jquery": "~2.1.1",
+    "knockout.js": "^3.0.0",
+    "font-awesome": "^4.0.3",
+    "knockout.validation": "^1.0.2",
+    "bootstrap": "~3.2.0",
+    "fastclick": "~1.0.3"
+  }
+}
