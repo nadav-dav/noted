@@ -32,10 +32,23 @@ module.exports = {
 
             // FONT-AWESOME
             components("/font-awesome/css", "/css", ["*.min.css"]),
+
+            // REQUIREJS
+            components("/requirejs", "/js", ["*.js"]),
         ]
     },
     projectfiles: {
         files: [{
+            expand: true,
+            cwd: '<%= folder.app %>/assets',
+            dest: 'dist/assets',
+            src: [
+                '**/*.css',
+                '**/*.js',
+                '**/*.png',
+                '**/*.gif'
+            ]
+        },{
             expand: true,
             cwd: '<%= folder.app %>',
             dest: 'dist',

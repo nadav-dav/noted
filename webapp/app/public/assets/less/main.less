@@ -1,5 +1,148 @@
+@import "elements.less";
+
+// COLORS
+@bright: #1BA38E;
+@dark: #1D5950;
+@black: #262425;
+@warning: #F26460;
+@white: #F4F3F3;
+@gray: #999999;
+
+html {
+	padding: 0;
+	margin: 0;
+}
+
 body {
+	color: @black;
+	background-color: @white;
+	padding: 0;
+	margin: 0;
+	font-family: "Montserrat", "Arial"; 
+}
+
+#header {
+	background-color: @bright;
+	color: @white;
+	height: 40px;
+	position: relative;
+	
 	h1 {
-		color: #444;
+		font-size: 20px;	
+		margin-top: 8px;
+		.text-shadow(0, 3px, 0px, 0.2);
+	}
+
+	.logout-btn {
+		border: 1px solid white;
+		.rounded(5px);
+		height:25px;
+		width:60px;
+		font-size: 10px;
+		position: absolute;
+		right: 10px;
+		top: 0px;
+		background-color: @bright;
+	}
+}
+
+#map {
+	height: 200px;
+}
+
+.seperator {
+	background-color: @bright;
+	height:5px
+}
+
+.message {
+	border-bottom: 1px solid @gray;
+	display: block;
+	height: 64px;
+	background-color: @white;
+	font-size: 12px;
+
+	.image {
+		float:left;
+		display: block;
+		padding-left: 10px;
+		padding-top: 6px;
+	}
+	.content {
+		float:left;	
+		padding-left: 10px;
+		padding-top: 4px;
+
+		.name {
+			color: @dark;
+			white-space: nowrap;
+		}
+		.hint {
+			color: @gray;	
+			white-space: nowrap;
+		}
+		.text {
+			color: @bright;	
+			white-space: nowrap;
+		}
+	}
+	.circletag {
+		@size: 50px;
+		.rounded(25px);
+	    display: block;
+	    width: @size;
+	    height: @size;
+	    background: @bright;
+	    background-position:50% 50%;
+	    background-repeat:no-repeat;
+	    overflow: hidden;
+	    img {
+		    width: @size;
+	    	height: @size;
+		}    
+	}
+}
+
+#loginPage {
+	background-color: @dark;
+	height: 110%;
+
+	.icon {
+		font-size: 60px;
+		.back {
+			color: @bright;
+			.text-shadow(0, 3px, 0px, 0.2);
+		}
+		.front {
+			color: @white;	
+		}
+	}
+
+	.inputs {
+		padding-top: 30px;
+		padding-bottom: 30px;
+		@radius: 10px;
+		.box-shadow(0);
+
+		input:nth-child(1) {
+			border-bottom-right-radius: 0px;
+			border-bottom-left-radius: 0px;
+			border-top-right-radius: @radius;
+			border-top-left-radius: @radius;
+			border-bottom: 0px;
+		}
+		input:nth-child(2) {
+			border-bottom-right-radius: @radius;
+			border-bottom-left-radius: @radius;
+			border-top-right-radius: 0px;
+			border-top-left-radius: 0px;
+		}
+	}	
+	button {
+		width: 100%;
+		height: 60px;
+		margin-bottom: 40px;
+		background-color: @dark;
+		color: @white;
 	}
 }

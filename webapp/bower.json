@@ -1,7 +1,7 @@
 {
   "name": "noted",
   "dependencies": {
-    "requirejs": "^2.1.11",
+    "requirejs": "~2.1.14",
     "jquery": "~2.1.1",
     "knockout.js": "^3.0.0",
     "font-awesome": "^4.0.3",

@@ -1,17 +1,42 @@
-{>"layouts/mobile"/}
-{<title}Noted{/title}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />  
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"  href="/assets/css/main.css">
+	<script type="text/javascript"          src="/assets/js/fastclick.js"></script>
+    <script type="text/javascript"          src="/assets/js/require.js"></script>
+    <script type="text/javascript"          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzrEgd8bbLc0w2RalAzuIQIHTOZ5yjdG4"></script>
+    <script type="text/javascript">
+        require.config({
+            baseUrl: '/assets/js',
+            paths: {
+                jquery:         'jquery.min',
+                ko:             'knockout',
+                kovalidation:   'knockout.validation.min'
+            },
+            waitSeconds: 15
+        });
+        {>"scripts/all" /}    
 
+        require(['pagesManager'], function (pagesManager) {
+            pagesManager.show("loginPage");
+        })
+    </script>
 
-{<model}
-    function AppViewModel() {
-        var self = this;
-        self.binded = ko.observable("Binding is working successfully!");
-    }
-    ko.applyBindings(new AppViewModel());
-{/model}
+    <title>Noted</title>
+</head>
+<body>
+<div>
+    {>"pages/login" /}
+    {>"pages/messages" /}
+</div>
+</body>
+</html>
 
-
-{<body}
-    <h1 data-bind="text: binded"> Not working :( </h1>
-{/body}
 

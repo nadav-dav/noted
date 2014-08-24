@@ -1,0 +1,37 @@
+<div class="row">
+	<script type="text/javascript">
+		require(["model"], function (model) {
+			for(var i=0; i< 20; i++){
+				model.messages.push(
+					{ 
+						author: 	{
+							name: 	"John",
+							image: 	"http://www.gravatar.com/avatar/91028d05ccc7d53a8d765930637b4886"
+						},
+						hint: 		"Hint place",
+						shortMsg: 	"This is great ide...",
+						lng: 		1,
+						lat: 		1
+					}
+				);
+			}
+		})
+	</script>
+
+	<div class="col-md-12">
+		<div data-bind="foreach: messages">
+			<div class="message">
+				<div class="image">
+					<div class="circletag">
+						<img data-bind="attr: {src: author.image}" />
+					</div>
+				</div>
+				<div class="content">
+					<div class="name" data-bind="text: author.name"></div>
+			        <div class="hint" data-bind="text: hint"></div>
+			        <div class="text" data-bind="text: shortMsg"></div>
+				</div>		        
+			</div>
+	    </div>
+	</div>
+</div>
