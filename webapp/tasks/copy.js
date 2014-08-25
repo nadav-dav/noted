@@ -42,12 +42,7 @@ module.exports = {
             expand: true,
             cwd: '<%= folder.app %>/assets',
             dest: 'dist/assets',
-            src: [
-                '**/*.css',
-                '**/*.js',
-                '**/*.png',
-                '**/*.gif'
-            ]
+            src: ['**/*']
         },{
             expand: true,
             cwd: '<%= folder.app %>',

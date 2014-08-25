@@ -28,7 +28,7 @@ module.exports = function (grunt) {
         open: task('open'),
         less: task('less'),
         watch: task('watch'),
-        ftps: task('ftps'),
+        spawn: task('spawn'),
         waitServer: task('waitServer')
     });
 
