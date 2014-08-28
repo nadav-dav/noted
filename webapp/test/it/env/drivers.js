@@ -2,8 +2,6 @@ var rek = require("rekuire");
 var request = require("request");
 var Q = require("q");
 var env = rek("ITEnvironment");
-var qreq = require("qreq");
-
 
 
 var drivers = {};
