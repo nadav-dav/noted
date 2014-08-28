@@ -29,6 +29,7 @@ module.exports = function (grunt) {
         less: task('less'),
         watch: task('watch'),
         spawn: task('spawn'),
+        mochacli: task('mochacli'),
         waitServer: task('waitServer')
     });
 
@@ -53,6 +54,8 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('default', ['run']);
+
+    grunt.registerTask('test', ['build','mochacli','watch:test']);
 
 };
 

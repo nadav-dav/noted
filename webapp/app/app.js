@@ -4,6 +4,9 @@ var http = require('http');
 var path = require('path');
 var logger = require('morgan')('dev');
 var dust = require('klei-dust');
+var bodyParser = require("body-parser");
+var rek = require("rekuire");
+
 
 var STATICS = path.join(__dirname, '../dist')
 
@@ -17,10 +20,15 @@ var app = express();
 
 	app.use     (express.static(STATICS));
 	app.use		(logger);
+    app.use     (bodyParser.urlencoded({ extended: false }));
+    app.use     (bodyParser.json());
 
 	app.get('/', function  (req, res) {
 	    res.render('index');
 	});
+
+    // CONTROLLERS
+    rek('ServicesController').config(app);
 
 	app.listen(app.get('port'), function () {
 		var splash = function () {/*
@@ -37,3 +45,5 @@ var app = express();
 		console.log(splash.toString().match(/\/\*([\s\S]*)\*\//m)[1]);
 	    console.log("listening on port " + app.get('port'));
 	});
+
+module.exports = app;
