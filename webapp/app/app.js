@@ -8,7 +8,7 @@ var bodyParser = require("body-parser");
 var rek = require("rekuire");
 
 
-var STATICS = path.join(__dirname, '../dist')
+var STATICS = path.join(__dirname, '../dist');
 
 var app = express();
 
@@ -28,7 +28,7 @@ var app = express();
 	});
 
     // CONTROLLERS
-    rek('ServicesController').config(app);
+    rek('CompanyController').config(app);
 
 	app.listen(app.get('port'), function () {
 		var splash = function () {/*

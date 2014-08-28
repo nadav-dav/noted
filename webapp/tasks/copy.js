@@ -10,33 +10,6 @@ function components(src, dest, pattern) {
 }
 
 module.exports = {
-    resources: {
-        files: [
-            // FONTS
-            components("/bootstrap/dist/fonts", "/fonts"),
-            components("/font-awesome/fonts", "/fonts"),
-
-            // BOOSTRAP
-            components("/bootstrap/dist/css", "/css", ["*.min.css"]),
-            components("/bootstrap/dist/js", "/js", ["*.min.js"]),
-
-            // JQUERY
-            components("/jquery/dist", "/js", ["*.min.js"]),
-
-            // FASTCLICK
-            components("/fastclick/lib", "/js"),
-
-            // KNOCKOUT
-            components("/knockout.js", "/js", ["knockout.js"]),
-            components("/knockout.validation/Dist", "/js", ["*.min.js"]),
-
-            // FONT-AWESOME
-            components("/font-awesome/css", "/css", ["*.min.css"]),
-
-            // REQUIREJS
-            components("/requirejs", "/js", ["*.js"]),
-        ]
-    },
     projectfiles: {
         files: [{
             expand: true,

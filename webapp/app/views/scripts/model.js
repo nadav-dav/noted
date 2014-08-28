@@ -69,7 +69,7 @@ define('observableModel', ['ko'], function(ko){
 define("model", ['ko', 'jquery', 'observableModel'], function (ko, $, observableModel) {
 	var model = {
 		header_title : "Noted",
-    header_logout : false,
+        header_logout : false,
 		messages: []
 	};
 	model = observableModel(model);

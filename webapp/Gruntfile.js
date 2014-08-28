@@ -36,8 +36,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'less:compile',
-        'copy:resources',
-        'copy:projectfiles',
+        'copy:projectfiles'
     ]);
 
     grunt.registerTask('webapp', function () {
