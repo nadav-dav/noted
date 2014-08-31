@@ -13,17 +13,10 @@ describe("Login IT", function () {
 
     it("Should be able to login", function (done) {
         drivers.database.createUser()
-            .then(function(newUser){
-                user = newUser;
-            })
+            .then(storeUserInScope)
             .then(drivers.security.accessRestrictedArea)
             .then(makeSure.statusCodeIs(403))
-            .then(function(){
-                return drivers.security.login({
-                    email   : user.email,
-                    password: user.password
-                })
-            })
+            .then(loginAsUser)
             .then(makeSure.statusCodeIs(200))
             .then(drivers.security.accessRestrictedArea)
             .then(makeSure.statusCodeIs(200))
@@ -33,15 +26,8 @@ describe("Login IT", function () {
 
     it("Should be able to logout", function (done) {
         drivers.database.createUser()
-            .then(function(newUser){
-                user = newUser;
-            })
-            .then(function(){
-                return drivers.security.login({
-                    email   : user.email,
-                    password: user.password
-                })
-            })
+            .then(storeUserInScope)
+            .then(loginAsUser)
             .then(makeSure.statusCodeIs(200))
             .then(drivers.security.accessRestrictedArea)
             .then(makeSure.statusCodeIs(200))
@@ -51,4 +37,15 @@ describe("Login IT", function () {
             .then(function(){done()})
             .catch(done);
     });
+
+    function storeUserInScope(newUser){
+        user = newUser;
+    }
+
+    function loginAsUser(){
+        return drivers.security.login({
+            email   : user.email,
+            password: user.password
+        })
+    }
 });
