@@ -11,7 +11,8 @@ var drivers = {};
     drivers.note    = createDriverFor   (env.url+"/services/note");
     drivers.vote    = createDriverFor   (env.url+"/services/vote");
 
-
+    drivers.security= createSecurityDrivers();
+    drivers.cookies = createCookiesDrivers();
 
 
 function createDriverFor(endpoint){
@@ -39,6 +40,40 @@ function createDriverFor(endpoint){
                 .spread(function(res, body){
                     return res;
                 });
+        }
+    }
+}
+
+function createSecurityDrivers(){
+    return {
+        accessRestrictedArea: function(){
+            return request.get.asPromise(env.url+"/services/restricted")
+                .spread(function(res, body){
+                    return res;
+                });
+        },
+
+        login: function(payload){
+            return request.post.asPromise(env.url+"/services/login", {json: payload})
+                .spread(function(res, body){
+                    return res;
+                });
+        },
+
+        logout: function(){
+            return request.del.asPromise(env.url+"/services/logout")
+                .spread(function(res, body){
+                    return res;
+                });
+        }
+    }
+}
+
+function createCookiesDrivers(){
+    return {
+        reset: function(){
+            var j = request.jar();
+            request = require("request").defaults({jar:j})
         }
     }
 }

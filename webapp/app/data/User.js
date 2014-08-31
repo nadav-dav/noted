@@ -13,6 +13,9 @@ var userSchema = new Schema({
     dateUpdated :  { type: Date, default: Date.now }
 });
 
+userSchema.index({ email    : 1 });
+userSchema.index({ company  : 1 });
+
 var User = conn.model('users', userSchema);
 
 module.exports = User;

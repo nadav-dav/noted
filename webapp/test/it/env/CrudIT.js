@@ -1,7 +1,7 @@
 var rek = require("rekuire");
 var makeSure = rek("makeSureMatchers");
 var assert = require("assert");
-var MongoConnection = rek("MongoConnection");
+var ResetDatabase = rek("ResetDatabase");
 
 function testCRUD(testName, driver, data){
     var creationData = data.create;
@@ -10,7 +10,7 @@ function testCRUD(testName, driver, data){
 
     describe(testName, function () {
         beforeEach(function(){
-            MongoConnection.connection.db.dropDatabase();
+            ResetDatabase();
         });
         it(testName+": create and read", function (done) {
 

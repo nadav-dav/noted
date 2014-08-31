@@ -6,6 +6,7 @@ var logger = require('morgan')('dev');
 var dust = require('klei-dust');
 var bodyParser = require("body-parser");
 var rek = require("rekuire");
+var session = require('express-session');
 
 
 var STATICS = path.join(__dirname, '../dist');
@@ -18,6 +19,7 @@ var app = express();
 	app.set     ('views', path.join(__dirname, 'views'));
 	app.set     ('view engine', 'dust');
 
+    app.use     (session({secret: "_\"=g-*8J,w5! {M2#~ ')t'3V6>7.sM@-'uLS.^1/*Kb.{m{,h"}));
 	app.use     (express.static(STATICS));
 	app.use		(logger);
     app.use     (bodyParser.urlencoded({ extended: false }));
@@ -29,6 +31,7 @@ var app = express();
 
     // CONTROLLERS
     rek('CrudControllers').config(app);
+    rek('SecurityControllers').config(app);
 
 	app.listen(app.get('port'), function () {
 		var splash = function () {/*
