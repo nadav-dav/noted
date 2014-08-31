@@ -3,13 +3,12 @@ var request = require("request");
 var env = rek("ITEnvironment");
 rek("asPromise");
 
-var companyEndpoint = env.url+"/services/company";
-var userEndpoint = env.url+"/services/user";
 
 var drivers = {};
 
-drivers.company = createDriverFor(companyEndpoint);
-drivers.user = createDriverFor(userEndpoint);
+    drivers.company = createDriverFor   (env.url+"/services/company");
+    drivers.user    = createDriverFor   (env.url+"/services/user");
+    drivers.note    = createDriverFor   (env.url+"/services/note");
 
 
 

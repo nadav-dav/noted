@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 
 
 
-CrudIT('Company IT', drivers.company, {
+CrudIT('Company CRUD IT', drivers.company, {
     create: {
         name: "My Company"
     },
@@ -14,7 +14,7 @@ CrudIT('Company IT', drivers.company, {
     }
 });
 
-CrudIT('User IT', drivers.user, {
+CrudIT('User CRUD IT', drivers.user, {
     create: {
         email   :   "myemail@company.com",
         name    :   "Foo Bar",
@@ -26,5 +26,23 @@ CrudIT('User IT', drivers.user, {
         email   :   "anotheremail@company.com",
         name    :   "Boo Far",
         password:   "my-new-pass"
+    }
+});
+
+
+CrudIT('Note CRUD IT', drivers.note, {
+    create: {
+        user    :   new mongoose.Types.ObjectId(),
+        company :   new mongoose.Types.ObjectId(),
+        hint    :   "somewhere",
+        text    :   "CONTENT",
+        location:   [1,-1]
+    },
+    update: {
+        hint    :   "another hint",
+        text    :   "NEW CONTENT",
+        location:   [2,-2],
+        upvotes :   10,
+        downvotes:  20
     }
 });

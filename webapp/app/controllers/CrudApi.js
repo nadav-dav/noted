@@ -1,6 +1,6 @@
 function createCrudApi (router, path, Model, options){
     options = options || {};
-    preprocessInsertedData = options.preprocessInsertedData || function(p){return p};
+    var preprocessInsertedData = options.preprocessInsertedData || function(p){return p};
 
     // CREATE
     router.post(path, function(req, res){

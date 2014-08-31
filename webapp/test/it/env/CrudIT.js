@@ -89,7 +89,13 @@ function testCRUD(testName, driver, data){
                 var keys = Object.keys(dataToCheck);
                 for(var i=0; i<keys.length; i++){
                     var key = keys[i];
-                    assert.equal(data[key], dataToCheck[key]);
+                    var value = data[key];
+                    if (typeof value === 'object'){
+                        assert.deepEqual(data[key], dataToCheck[key]);
+                    }else {
+                        assert.equal(data[key], dataToCheck[key]);
+                    }
+
                 }
             }
         }
