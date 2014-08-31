@@ -1,8 +1,7 @@
 var rek = require("rekuire");
 var makeSure = rek("makeSureMatchers");
-var drivers = rek("drivers");
 var assert = require("assert");
-
+var MongoConnection = rek("MongoConnection");
 
 function testCRUD(testName, driver, data){
     var creationData = data.create;
@@ -10,6 +9,9 @@ function testCRUD(testName, driver, data){
     if (!creationData || !updateData) throw new Error("Missing data");
 
     describe(testName, function () {
+        beforeEach(function(){
+            MongoConnection.connection.db.dropDatabase();
+        });
         it(testName+": create and read", function (done) {
 
             driver.create(creationData)
@@ -24,7 +26,7 @@ function testCRUD(testName, driver, data){
                 .catch(done);
         });
 
-        it("should be able to edit a company data", function (done) {
+        it(testName+": edit", function (done) {
 
             // Create
             driver.create(creationData)
@@ -55,7 +57,7 @@ function testCRUD(testName, driver, data){
         });
 
 
-        it("should be able to delete a company", function (done) {
+        it(testName+": delete", function (done) {
 
             // Create
             driver.create(creationData)
@@ -102,11 +104,4 @@ function testCRUD(testName, driver, data){
     });
 }
 
-testCRUD('Company IT', drivers.company, {
-    create: {
-        name: "My Company"
-    },
-    update: {
-        name: "Another Company"
-    }
-});
+module.exports = testCRUD;

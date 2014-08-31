@@ -28,7 +28,7 @@ var app = express();
 	});
 
     // CONTROLLERS
-    rek('CompanyController').config(app);
+    rek('CrudControllers').config(app);
 
 	app.listen(app.get('port'), function () {
 		var splash = function () {/*

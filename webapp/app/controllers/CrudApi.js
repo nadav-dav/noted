@@ -4,7 +4,9 @@ function createCrudApi (router, path, Model, options){
 
     // CREATE
     router.post(path, function(req, res){
-        var model = new Model(preprocessInsertedData(req.body));
+        var payload = preprocessInsertedData(req.body);
+            payload = clearUndefinedValues(payload);
+        var model = new Model(payload);
         model.save.bind(model).asPromise()
             .spread(respondSuccessfullyTo(res))
             .catch(respondFailureTo(res));
@@ -22,6 +24,7 @@ function createCrudApi (router, path, Model, options){
     router.put(path+"/:id", function(req, res){
         var id = req.param("id");
         var payload = preprocessInsertedData(req.body);
+            payload = clearUndefinedValues(payload);
         payload.dateUpdated = Date.now();
         Model.update.bind(Model).asPromise({_id: id} , payload)
             .then(respondSuccessfullyTo(res))
@@ -46,10 +49,22 @@ function createCrudApi (router, path, Model, options){
 
     function respondFailureTo(res){
         return function(e){
-            console.error(e.stack || e);
+            console.error("ERROR:" + (e.stack || e));
             res.status(500).json({});
         }
     }
+
+    function clearUndefinedValues(obj){
+        var keys = Object.keys(obj);
+        for( var i=0; i<keys.length; i++){
+            var key = keys[i];
+            if (obj[key] === undefined){
+                delete obj[key];
+            }
+        }
+        return obj;
+    }
+
     // ===========================================
 }
 

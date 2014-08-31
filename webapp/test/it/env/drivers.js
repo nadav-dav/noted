@@ -4,35 +4,44 @@ var env = rek("ITEnvironment");
 rek("asPromise");
 
 var companyEndpoint = env.url+"/services/company";
+var userEndpoint = env.url+"/services/user";
 
 var drivers = {};
 
-    drivers.company = {
+drivers.company = createDriverFor(companyEndpoint);
+drivers.user = createDriverFor(userEndpoint);
+
+
+
+
+function createDriverFor(endpoint){
+    return {
         create: function (payload){
-            return request.post.asPromise(companyEndpoint, {json: payload})
+            return request.post.asPromise(endpoint, {json: payload})
                 .spread(function(res, body){
                     return res;
                 });
         },
         getById: function (id){
-            return request.get.asPromise(companyEndpoint+"/"+id, {json: true})
+            return request.get.asPromise(endpoint+"/"+id, {json: true})
                 .spread(function(res, body){
                     return res;
                 });
         },
         update: function (id, changes){
-            return request.put.asPromise(companyEndpoint+"/"+id, {json: changes})
+            return request.put.asPromise(endpoint+"/"+id, {json: changes})
                 .spread(function(res, body){
                     return res;
                 });
         },
         'delete': function (id, changes){
-            return request.del.asPromise(companyEndpoint+"/"+id, {json: true})
+            return request.del.asPromise(endpoint+"/"+id, {json: true})
                 .spread(function(res, body){
                     return res;
                 });
         }
-    };
+    }
+}
 
 
 module.exports = drivers;
