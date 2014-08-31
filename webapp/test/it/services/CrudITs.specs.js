@@ -46,3 +46,14 @@ CrudIT('Note CRUD IT', drivers.note, {
         downvotes:  20
     }
 });
+
+CrudIT('Vote CRUD IT', drivers.vote, {
+    create: {
+        user    :   new mongoose.Types.ObjectId(),
+        note    :   new mongoose.Types.ObjectId(),
+        type    :   1
+    },
+    update: {
+        type    :   -1
+    }
+});

@@ -2,6 +2,7 @@ var rek = require("rekuire");
 var Company = rek("Company");
 var User = rek("User");
 var Note = rek("Note");
+var Vote = rek("Vote");
 var CrudApi = rek("CrudApi");
 rek("asPromise");
 
@@ -35,6 +36,16 @@ function configServicesController(router){
                 location: data.location,
                 hint: data.hint,
                 text: data.text
+            }
+        }
+    });
+
+    CrudApi.create(router, "/services/vote", Vote, {
+        preprocessInsertedData: function(data){
+            return {
+                user: data.user,
+                note: data.note,
+                type: data.type
             }
         }
     });

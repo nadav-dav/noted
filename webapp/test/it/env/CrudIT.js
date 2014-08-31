@@ -32,7 +32,8 @@ function testCRUD(testName, driver, data){
             driver.create(creationData)
                 .then(storeResponseInScope)
                 .then(function (res) {
-                    assert.equal(data.dateCreated, data.dateUpdated);
+                    if (data.dateCreated && data.dateUpdated)
+                        assert.equal(data.dateCreated, data.dateUpdated);
                 })
 
                 // Assert
@@ -50,7 +51,8 @@ function testCRUD(testName, driver, data){
                 .then(storeResponseInScope)
                 .then(assertDataContains(updateData))
                 .then(function(){
-                    assert.notEqual(data.dateCreated, data.dateUpdated);
+                    if (data.dateCreated && data.dateUpdated)
+                        assert.notEqual(data.dateCreated, data.dateUpdated);
                 })
                 .then(function(){done()})
                 .catch(done);
@@ -91,9 +93,9 @@ function testCRUD(testName, driver, data){
                     var key = keys[i];
                     var value = data[key];
                     if (typeof value === 'object'){
-                        assert.deepEqual(data[key], dataToCheck[key]);
+                        assert.deepEqual(data[key], dataToCheck[key], "Failed to assert field "+key);
                     }else {
-                        assert.equal(data[key], dataToCheck[key]);
+                        assert.equal(data[key], dataToCheck[key], "Failed to assert field "+key);
                     }
 
                 }

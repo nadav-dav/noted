@@ -9,6 +9,7 @@ var drivers = {};
     drivers.company = createDriverFor   (env.url+"/services/company");
     drivers.user    = createDriverFor   (env.url+"/services/user");
     drivers.note    = createDriverFor   (env.url+"/services/note");
+    drivers.vote    = createDriverFor   (env.url+"/services/vote");
 
 
 
