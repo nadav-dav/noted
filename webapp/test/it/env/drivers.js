@@ -1,18 +1,22 @@
 var rek = require("rekuire");
 var request = require("request");
+var mongoose = require("mongoose");
 var env = rek("ITEnvironment");
 rek("asPromise");
+var User = rek("User");
+var UserPrivileges = rek("UserPrivileges");
 
 
 var drivers = {};
 
     drivers.company = createDriverFor   (env.url+"/services/company");
-    drivers.user    = createDriverFor   (env.url+"/services/user");
     drivers.note    = createDriverFor   (env.url+"/services/note");
     drivers.vote    = createDriverFor   (env.url+"/services/vote");
+    drivers.user    = createDriverFor   (env.url+"/services/user");
 
     drivers.security= createSecurityDrivers();
     drivers.cookies = createCookiesDrivers();
+    drivers.database = createDatabaseDrivers();
 
 
 function createDriverFor(endpoint){
@@ -74,6 +78,26 @@ function createCookiesDrivers(){
         reset: function(){
             var j = request.jar();
             request = require("request").defaults({jar:j})
+        }
+    }
+}
+
+function createDatabaseDrivers(){
+    return {
+        createUser: function(privileges){
+            privileges = privileges || UserPrivileges.NORMAL_USER
+            var user = new User({
+                email   :   "myemail@company.com",
+                name    :   "Foo Bar",
+                password:   "mypass",
+                company :   new mongoose.Types.ObjectId(),
+                privileges: privileges
+            });
+
+            return user.save.bind(user).asPromise()
+                .then(function(results){
+                    return results[0];
+                })
         }
     }
 }

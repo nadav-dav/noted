@@ -2,6 +2,8 @@ var rek = require("rekuire");
 var User = rek("User");
 rek("asPromise");
 
+var hour = 3600000
+
 function configSecurityControllers(router){
 
     router.get("/services/restricted", function(req, res){
@@ -22,6 +24,8 @@ function configSecurityControllers(router){
             } else if (results && results.length === 1){
                 req.session.user = results[0];
                 req.session.dateCreated = Date.now();
+                req.session.cookie.expires = new Date(Date.now() + hour * 10);
+                req.session.cookie.maxAge = hour;
                 res.status(200).send()
             }else {
                 res.status(403).send();

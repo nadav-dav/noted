@@ -1,13 +1,21 @@
+var rek = require("rekuire");
+var UserPrivileges = rek("UserPrivileges");
+
 function createCrudApi (router, path, Model, options){
     options = options || {};
+    var securityHook = options.securityHook;
     var preprocessInsertedData = options.preprocessInsertedData || function(p){return p};
 
     // CREATE
     router.post(path, function(req, res){
-        var payload = preprocessInsertedData(req.body);
-            payload = clearUndefinedValues(payload);
-        var model = new Model(payload);
-        model.save.bind(model).asPromise()
+        securityHook(req, res)
+            .fail(respondRejected(res))
+            .then(function(){
+                var payload = preprocessInsertedData(req.body);
+                payload = clearUndefinedValues(payload);
+                var model = new Model(payload);
+                return model.save.bind(model).asPromise()
+            })
             .spread(respondSuccessfullyTo(res))
             .catch(respondFailureTo(res));
     });
@@ -15,7 +23,11 @@ function createCrudApi (router, path, Model, options){
     // READ
     router.get(path+"/:id", function(req, res){
         var id = req.param("id");
-        Model.findOne.bind(Model).asPromise( {_id: id} )
+        securityHook(req, res)
+            .fail(respondRejected(res))
+            .then(function(){
+                return Model.findOne.bind(Model).asPromise({_id: id})
+            })
             .then(respondSuccessfullyTo(res))
             .catch(respondFailureTo(res));
     });
@@ -23,10 +35,17 @@ function createCrudApi (router, path, Model, options){
     //UPDATE
     router.put(path+"/:id", function(req, res){
         var id = req.param("id");
-        var payload = preprocessInsertedData(req.body);
-            payload = clearUndefinedValues(payload);
-        payload.dateUpdated = Date.now();
-        Model.update.bind(Model).asPromise({_id: id} , payload)
+        Model.findOne.bind(Model).asPromise({_id: id})
+            .then(function(item){
+                return securityHook(req, res, item)
+            })
+            .fail(respondRejected(res))
+            .then(function(){
+                var payload = preprocessInsertedData(req.body);
+                payload = clearUndefinedValues(payload);
+                payload.dateUpdated = Date.now();
+                return Model.update.bind(Model).asPromise({_id: id} , payload)
+            })
             .then(respondSuccessfullyTo(res))
             .catch(respondFailureTo(res));
     });
@@ -34,7 +53,14 @@ function createCrudApi (router, path, Model, options){
     // DELETE
     router.delete(path+"/:id", function(req, res){
         var id = req.param("id");
-        Model.remove.bind(Model).asPromise({_id: id})
+        Model.findOne.bind(Model).asPromise({_id: id})
+            .then(function(item){
+                return securityHook(req, res, item)
+            })
+            .fail(respondRejected(res))
+            .then(function(){
+                return Model.remove.bind(Model).asPromise({_id: id});
+            })
             .then(respondSuccessfullyTo(res))
             .catch(respondFailureTo(res));
     });
@@ -49,8 +75,18 @@ function createCrudApi (router, path, Model, options){
 
     function respondFailureTo(res){
         return function(e){
-            console.error("ERROR:" + (e.stack || e));
-            res.status(500).json({});
+            try{
+                res.status(500).json({});
+                console.error("ERROR:" + (e.stack || e));
+            }catch(e){
+
+            }
+        }
+    }
+
+    function respondRejected(res){
+        return function(){
+            res.status(403).json({});
         }
     }
 
@@ -63,6 +99,14 @@ function createCrudApi (router, path, Model, options){
             }
         }
         return obj;
+    }
+
+    function privilegesMustBeAtLeast(allowedPrivileges, req, res, fn){
+        if (req.session.user && req.session.user.privileges >= allowedPrivileges){
+            fn();
+        } else {
+            res.status(403).send();
+        }
     }
 
     // ===========================================

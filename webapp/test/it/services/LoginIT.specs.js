@@ -1,18 +1,21 @@
 var rek = require("rekuire");
 var drivers = rek("drivers");
 var makeSure = rek("makeSureMatchers");
-var mongoose = require("mongoose");
 var ResetDatabase = rek("ResetDatabase");
 
 describe("Login IT", function () {
 
+    var user;
     beforeEach(function(){
         drivers.cookies.reset();
         ResetDatabase();
     });
 
     it("Should be able to login", function (done) {
-        drivers.user.create(user)
+        drivers.database.createUser()
+            .then(function(newUser){
+                user = newUser;
+            })
             .then(drivers.security.accessRestrictedArea)
             .then(makeSure.statusCodeIs(403))
             .then(function(){
@@ -29,7 +32,10 @@ describe("Login IT", function () {
     });
 
     it("Should be able to logout", function (done) {
-        drivers.user.create(user)
+        drivers.database.createUser()
+            .then(function(newUser){
+                user = newUser;
+            })
             .then(function(){
                 return drivers.security.login({
                     email   : user.email,
@@ -45,12 +51,4 @@ describe("Login IT", function () {
             .then(function(){done()})
             .catch(done);
     });
-
-    var user = {
-        email   :   "myemail@company.com",
-        name    :   "Foo Bar",
-        password:   "mypass",
-        company :   new mongoose.Types.ObjectId(),
-        privileges: "super-user"
-    }
 });

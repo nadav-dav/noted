@@ -2,19 +2,28 @@ var rek = require("rekuire");
 var makeSure = rek("makeSureMatchers");
 var assert = require("assert");
 var ResetDatabase = rek("ResetDatabase");
+var drivers = rek("drivers");
+var UserPrivileges = rek("UserPrivileges");
 
 function testCRUD(testName, driver, data){
     var creationData = data.create;
     var updateData = data.update;
-    if (!creationData || !updateData) throw new Error("Missing data");
+    var privileges = data.userPrivileges;
 
     describe(testName, function () {
         beforeEach(function(){
             ResetDatabase();
+            drivers.cookies.reset();
         });
-        it(testName+": create and read", function (done) {
 
-            driver.create(creationData)
+        // =======================
+        //  CREATE AND READ TEST
+        // =======================
+
+
+        it(testName+": create and read", function (done) {
+            createdAndLoginUserWith(privileges)
+                .then(function(){ return driver.create(creationData) })
                 .then(makeSure.statusCodeIs(200))
                 .then(makeSure.responseObjectContainsKey("_id"))
                 .then(storeResponseInScope)
@@ -26,10 +35,26 @@ function testCRUD(testName, driver, data){
                 .catch(done);
         });
 
+        it(testName+": create and read without privileges", function (done) {
+            createdAndLoginUserWith(UserPrivileges.lowerThan(privileges))
+                .then(function(){ return driver.create(creationData) })
+                .then(makeSure.statusCodeIs(403))
+                .then(function(){done()})
+                .catch(done);
+        });
+
+
+
+
+        // =======================
+        //  EDIT TEST
+        // =======================
+
         it(testName+": edit", function (done) {
 
             // Create
-            driver.create(creationData)
+            createdAndLoginUserWith(privileges)
+                .then(function(){ return driver.create(creationData) })
                 .then(storeResponseInScope)
                 .then(function (res) {
                     if (data.dateCreated && data.dateUpdated)
@@ -59,10 +84,15 @@ function testCRUD(testName, driver, data){
         });
 
 
+        // =======================
+        //  DELETE TEST
+        // =======================
+
         it(testName+": delete", function (done) {
 
             // Create
-            driver.create(creationData)
+            createdAndLoginUserWith(privileges)
+                .then(function(){ return driver.create(creationData) })
                 .then(storeResponseInScope)
 
                 // Assert
@@ -108,6 +138,18 @@ function testCRUD(testName, driver, data){
 
         function getDocumentById() {
             return driver.getById(id);
+        }
+
+        function createdAndLoginUserWith(privileges){
+            var user;
+            return drivers.database.createUser(privileges)
+                .then(function(newUser){
+                    user = newUser;
+                    return drivers.security.login({email: user.email, password: user.password})
+                })
+                .then(function(){
+                    return user;
+                })
         }
     });
 }
