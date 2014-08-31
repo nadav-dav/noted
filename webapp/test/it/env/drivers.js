@@ -1,39 +1,37 @@
 var rek = require("rekuire");
 var request = require("request");
-var Q = require("q");
 var env = rek("ITEnvironment");
+rek("asPromise");
 
+var companyEndpoint = env.url+"/services/company";
 
 var drivers = {};
 
     drivers.company = {
-        create: function (name){
-            var payload = {
-                name: name
-            };
-            return Q.nfcall(request.post, env.url+"/services/company", {json: payload})
+        create: function (payload){
+            return request.post.asPromise(companyEndpoint, {json: payload})
                 .spread(function(res, body){
                     return res;
                 });
         },
         getById: function (id){
-            return Q.nfcall(request.get, env.url+"/services/company/"+id, {json: true})
+            return request.get.asPromise(companyEndpoint+"/"+id, {json: true})
                 .spread(function(res, body){
                     return res;
                 });
         },
         update: function (id, changes){
-            return Q.nfcall(request.put, env.url+"/services/company/"+id, {json: changes})
+            return request.put.asPromise(companyEndpoint+"/"+id, {json: changes})
                 .spread(function(res, body){
                     return res;
                 });
         },
         'delete': function (id, changes){
-            return Q.nfcall(request.del, env.url+"/services/company/"+id, {json: true})
+            return request.del.asPromise(companyEndpoint+"/"+id, {json: true})
                 .spread(function(res, body){
                     return res;
                 });
-        },
+        }
     };
 
 
