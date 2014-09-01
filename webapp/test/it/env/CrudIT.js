@@ -125,7 +125,7 @@ function testCRUD(testName, driver, data){
                     if (typeof value === 'object'){
                         assert.deepEqual(data[key], dataToCheck[key], "Failed to assert field "+key);
                     }else {
-                        assert.equal(data[key], dataToCheck[key], "Failed to assert field "+key);
+                        assert.equal(data[key], dataToCheck[key], "Failed to assert field "+key+"\n"+data[key]+" != "+dataToCheck[key]);
                     }
 
                 }

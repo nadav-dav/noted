@@ -25,6 +25,7 @@
     "express": "^4.8.4",
     "express-session": "^1.7.6",
     "klei-dust": "^0.8.2",
+    "lodash": "^2.4.1",
     "morgan": "^1.2.3",
     "q": "^1.0.1",
     "rekuire": "^0.1.5"
@@ -48,6 +49,7 @@
     "load-grunt-tasks": "^0.4.0",
     "mocha": "^1.21.4",
     "request": "^2.40.0",
+    "sinon": "^1.10.3",
     "tough-cookie": "^0.12.1"
   }
 }

@@ -16,7 +16,7 @@ var drivers = {};
 
     drivers.security= createSecurityDrivers();
     drivers.cookies = createCookiesDrivers();
-    drivers.database = createDatabaseDrivers();
+    drivers.database= createDatabaseDrivers();
 
 
 function createDriverFor(endpoint){

@@ -1,7 +1,7 @@
 var rek = require("rekuire");
 var UserPrivileges = rek("UserPrivileges");
 
-function createCrudApi (router, path, Model, options){
+function createCrudApi (router, path, dao, options){
     options = options || {};
     var securityHook = options.securityHook;
     var preprocessInsertedData = options.preprocessInsertedData || function(p){return p};
@@ -11,10 +11,9 @@ function createCrudApi (router, path, Model, options){
         securityHook(req, res)
             .fail(respondRejected(res))
             .then(function(){
-                var payload = preprocessInsertedData(req.body);
-                payload = clearUndefinedValues(payload);
-                var model = new Model(payload);
-                return model.save.bind(model).asPromise()
+                var payload = preprocessInsertedData(req.body, req.session);
+                    payload = clearUndefinedValues(payload);
+                return dao.save(payload)
             })
             .spread(respondSuccessfullyTo(res))
             .catch(respondFailureTo(res));
@@ -26,7 +25,7 @@ function createCrudApi (router, path, Model, options){
         securityHook(req, res)
             .fail(respondRejected(res))
             .then(function(){
-                return Model.findOne.bind(Model).asPromise({_id: id})
+                return dao.findOne(id);
             })
             .then(respondSuccessfullyTo(res))
             .catch(respondFailureTo(res));
@@ -35,16 +34,16 @@ function createCrudApi (router, path, Model, options){
     //UPDATE
     router.put(path+"/:id", function(req, res){
         var id = req.param("id");
-        Model.findOne.bind(Model).asPromise({_id: id})
+        dao.findOne(id)
             .then(function(item){
                 return securityHook(req, res, item)
             })
             .fail(respondRejected(res))
             .then(function(){
-                var payload = preprocessInsertedData(req.body);
-                payload = clearUndefinedValues(payload);
-                payload.dateUpdated = Date.now();
-                return Model.update.bind(Model).asPromise({_id: id} , payload)
+                var payload = preprocessInsertedData(req.body, req.session);
+                    payload = clearUndefinedValues(payload);
+                    payload.dateUpdated = Date.now();
+                return dao.update(id, payload)
             })
             .then(respondSuccessfullyTo(res))
             .catch(respondFailureTo(res));
@@ -53,13 +52,13 @@ function createCrudApi (router, path, Model, options){
     // DELETE
     router.delete(path+"/:id", function(req, res){
         var id = req.param("id");
-        Model.findOne.bind(Model).asPromise({_id: id})
+        dao.findOne(id)
             .then(function(item){
                 return securityHook(req, res, item)
             })
             .fail(respondRejected(res))
             .then(function(){
-                return Model.remove.bind(Model).asPromise({_id: id});
+                return dao.remove(id);
             })
             .then(respondSuccessfullyTo(res))
             .catch(respondFailureTo(res));
@@ -99,14 +98,6 @@ function createCrudApi (router, path, Model, options){
             }
         }
         return obj;
-    }
-
-    function privilegesMustBeAtLeast(allowedPrivileges, req, res, fn){
-        if (req.session.user && req.session.user.privileges >= allowedPrivileges){
-            fn();
-        } else {
-            res.status(403).send();
-        }
     }
 
     // ===========================================

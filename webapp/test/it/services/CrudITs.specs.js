@@ -21,7 +21,6 @@ CrudIT('User CRUD IT', drivers.user, {
         email   :   "myemail@company.com",
         name    :   "Foo Bar",
         password:   "mypass",
-        company :   new mongoose.Types.ObjectId(),
         privileges: UserPrivileges.NORMAL_USER
     },
     update: {
@@ -35,8 +34,6 @@ CrudIT('User CRUD IT', drivers.user, {
 
 CrudIT('Note CRUD IT', drivers.note, {
     create: {
-        user    :   new mongoose.Types.ObjectId(),
-        company :   new mongoose.Types.ObjectId(),
         hint    :   "somewhere",
         text    :   "CONTENT",
         location:   [1,-1]
@@ -44,21 +41,18 @@ CrudIT('Note CRUD IT', drivers.note, {
     update: {
         hint    :   "another hint",
         text    :   "NEW CONTENT",
-        location:   [2,-2],
-        upvotes :   10,
-        downvotes:  20
+        location:   [2,-2]
     },
-    userPrivileges: UserPrivileges.COMPANY_IT
+    userPrivileges: UserPrivileges.NORMAL_USER
 });
 
 CrudIT('Vote CRUD IT', drivers.vote, {
     create: {
-        user    :   new mongoose.Types.ObjectId(),
         note    :   new mongoose.Types.ObjectId(),
         type    :   1
     },
     update: {
         type    :   -1
     },
-    userPrivileges: UserPrivileges.COMPANY_IT
+    userPrivileges: UserPrivileges.NORMAL_USER
 });
