@@ -93,7 +93,6 @@ function configVotingControllers(router){
             .then(function(){
                 if(!req.session.user){
                     res.status(403).send();
-                    throw new Error('')
                 }
             })
             .fail(Respond.failureTo(res))

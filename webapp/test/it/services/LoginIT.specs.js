@@ -6,9 +6,9 @@ var ResetDatabase = rek("ResetDatabase");
 describe("Login IT", function () {
 
     var user;
-    beforeEach(function(){
+    beforeEach(function(done){
         drivers.cookies.reset();
-        ResetDatabase();
+        ResetDatabase().then(done);
     });
 
     it("Should be able to login", function (done) {

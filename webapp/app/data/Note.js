@@ -10,11 +10,12 @@ var noteSchema = new Schema({
     downvotes   :  { type: Number , default: 0 },
     hint        :  { type: String, required: false},
     text        :  { type: String, required: true},
-    location    :  { type: [Number], index: '2dsphere', required: true},
+    location    :  { type: [Number], index: "2d", required: true},
     dateCreated :  { type: Date, default: Date.now },
     dateUpdated :  { type: Date, default: Date.now }
 });
 
+noteSchema.index({ location  : "2d" });
 var Note = conn.model('notes', noteSchema);
 
 module.exports = Note;

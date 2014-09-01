@@ -11,9 +11,9 @@ function testCRUD(testName, driver, data){
     var privileges = data.userPrivileges;
 
     describe(testName, function () {
-        beforeEach(function(){
-            ResetDatabase();
+        beforeEach(function(done){
             drivers.cookies.reset();
+            ResetDatabase().then(done);
         });
 
         // =======================
@@ -145,6 +145,7 @@ function testCRUD(testName, driver, data){
             return drivers.database.createUser(privileges)
                 .then(function(newUser){
                     user = newUser;
+                    console.log("LOGIN")
                     return drivers.security.login({email: user.email, password: user.password})
                 })
                 .then(function(){

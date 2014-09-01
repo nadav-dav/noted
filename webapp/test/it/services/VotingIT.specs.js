@@ -1,15 +1,15 @@
+
 var rek = require("rekuire");
 var drivers = rek("drivers");
-var makeSure = rek("makeSureMatchers");
 var ResetDatabase = rek("ResetDatabase");
 var assert = require("assert");
 
 describe("Voting IT", function () {
 
     var user, note;
-    beforeEach(function(){
+    beforeEach(function(done){
         drivers.cookies.reset();
-        ResetDatabase();
+        ResetDatabase().then(done);
     });
 
     it("should be able to vote for a note, and get messages", function (done) {

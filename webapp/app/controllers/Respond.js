@@ -10,7 +10,6 @@ var Respond = {
         return function(e){
             try{
                 res.status(500).json({});
-                console.error("ERROR:" + (e.stack || e));
             }catch(e){
 
             }
