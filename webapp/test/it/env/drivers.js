@@ -9,17 +9,18 @@ var UserPrivileges = rek("UserPrivileges");
 
 var drivers = {};
 
-    drivers.company = createDriverFor   (env.url+"/services/company");
-    drivers.note    = createDriverFor   (env.url+"/services/note");
-    drivers.vote    = createDriverFor   (env.url+"/services/vote");
-    drivers.user    = createDriverFor   (env.url+"/services/user");
+    drivers.company = createCrudDriverFor   (env.url+"/services/company");
+    drivers.note    = createCrudDriverFor   (env.url+"/services/note");
+    drivers.vote    = createCrudDriverFor   (env.url+"/services/vote");
+    drivers.user    = createCrudDriverFor   (env.url+"/services/user");
 
     drivers.security= createSecurityDrivers();
     drivers.cookies = createCookiesDrivers();
     drivers.database= createDatabaseDrivers();
+    drivers.voting  = createVotingDrivers();
 
 
-function createDriverFor(endpoint){
+function createCrudDriverFor(endpoint){
     return {
         create: function (payload){
             return request.post.asPromise(endpoint, {json: payload})
@@ -98,6 +99,35 @@ function createDatabaseDrivers(){
                 .then(function(results){
                     return results[0];
                 })
+        }
+    }
+}
+
+function createVotingDrivers(){
+    return {
+        upvote : function (nodeId){
+            return request.post.asPromise(env.url+"/services/voting", {json: {type: 1, note: nodeId}})
+                .spread(function(res, body){
+                    return res;
+                });
+        },
+        downvote : function (nodeId){
+            return request.post.asPromise(env.url+"/services/voting", {json: {type: -1, note: nodeId}})
+                .spread(function(res, body){
+                    return res;
+                });
+        },
+        getUsersWhoVotedOn: function(noteId){
+            return request.get.asPromise(env.url+"/services/voting/note/"+noteId, {json: true})
+                .spread(function(res, body){
+                    return res;
+                });
+        },
+        getNotesVotedBy: function(userId){
+            return request.get.asPromise(env.url+"/services/voting/user/"+userId, {json: true})
+                .spread(function(res, body){
+                    return res;
+                });
         }
     }
 }

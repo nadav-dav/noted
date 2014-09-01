@@ -32,6 +32,7 @@ var app = express();
     // CONTROLLERS
     rek('CrudControllers').config(app);
     rek('SecurityControllers').config(app);
+    rek('VotingControllers').config(app);
 
 	app.listen(app.get('port'), function () {
 		var splash = function () {/*

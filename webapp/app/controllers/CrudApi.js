@@ -1,5 +1,6 @@
 var rek = require("rekuire");
 var UserPrivileges = rek("UserPrivileges");
+var Respond = rek("Respond");
 
 function createCrudApi (router, path, dao, options){
     options = options || {};
@@ -9,26 +10,26 @@ function createCrudApi (router, path, dao, options){
     // CREATE
     router.post(path, function(req, res){
         securityHook(req, res)
-            .fail(respondRejected(res))
+            .fail(Respond.rejectedTo(res))
             .then(function(){
                 var payload = preprocessInsertedData(req.body, req.session);
                     payload = clearUndefinedValues(payload);
                 return dao.save(payload)
             })
-            .spread(respondSuccessfullyTo(res))
-            .catch(respondFailureTo(res));
+            .spread(Respond.successfullyTo(res))
+            .catch(Respond.failureTo(res));
     });
 
     // READ
     router.get(path+"/:id", function(req, res){
         var id = req.param("id");
         securityHook(req, res)
-            .fail(respondRejected(res))
+            .fail(Respond.rejectedTo(res))
             .then(function(){
                 return dao.findOne(id);
             })
-            .then(respondSuccessfullyTo(res))
-            .catch(respondFailureTo(res));
+            .then(Respond.successfullyTo(res))
+            .catch(Respond.failureTo(res));
     });
 
     //UPDATE
@@ -38,15 +39,15 @@ function createCrudApi (router, path, dao, options){
             .then(function(item){
                 return securityHook(req, res, item)
             })
-            .fail(respondRejected(res))
+            .fail(Respond.rejectedTo(res))
             .then(function(){
                 var payload = preprocessInsertedData(req.body, req.session);
                     payload = clearUndefinedValues(payload);
                     payload.dateUpdated = Date.now();
                 return dao.update(id, payload)
             })
-            .then(respondSuccessfullyTo(res))
-            .catch(respondFailureTo(res));
+            .then(Respond.successfullyTo(res))
+            .catch(Respond.failureTo(res));
     });
 
     // DELETE
@@ -56,38 +57,16 @@ function createCrudApi (router, path, dao, options){
             .then(function(item){
                 return securityHook(req, res, item)
             })
-            .fail(respondRejected(res))
+            .fail(Respond.rejectedTo(res))
             .then(function(){
                 return dao.remove(id);
             })
-            .then(respondSuccessfullyTo(res))
-            .catch(respondFailureTo(res));
+            .then(Respond.successfullyTo(res))
+            .catch(Respond.failureTo(res));
     });
 
     // HELPERS
     // ===========================================
-    function respondSuccessfullyTo(res){
-        return function(result){
-            res.status(200).json(result);
-        }
-    }
-
-    function respondFailureTo(res){
-        return function(e){
-            try{
-                res.status(500).json({});
-                console.error("ERROR:" + (e.stack || e));
-            }catch(e){
-
-            }
-        }
-    }
-
-    function respondRejected(res){
-        return function(){
-            res.status(403).json({});
-        }
-    }
 
     function clearUndefinedValues(obj){
         var keys = Object.keys(obj);
