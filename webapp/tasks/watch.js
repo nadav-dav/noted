@@ -8,5 +8,9 @@ module.exports =  {
     test: {
         files: ['src/**/*.js', 'test/**/*.js', 'package.json'],
         tasks: ['mochacli']
+    },
+    statics: {
+        files: ['<%= folder.app %>/**/*'],
+        tasks: ['build']
     }
 };

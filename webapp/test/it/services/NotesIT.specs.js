@@ -28,6 +28,21 @@ describe("Notes IT", function () {
             .catch(done);
     });
 
+
+    it("should be able to return messages of a user", function (done) {
+        createAndLoginUser()
+            .then(function(){return createANote(Holon, "holon");})
+            .then(function(){return createANote(Haifa, "haifa");})
+            .then(function(){return createANote(Natanya, "natanya");})
+            .then(function(){return drivers.note.searchByUser(user._id) })
+            .then(function(res){
+                var notes = res.body;
+                assert(notes.length == 3);
+            })
+            .then(function(){done()})
+            .catch(done);
+    });
+
     var TelAviv = [32.0878802,34.797246];
     var Holon = [32.0625706,34.8116656];
     var Haifa = [32.752391,35.0227914];

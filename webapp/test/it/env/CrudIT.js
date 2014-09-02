@@ -145,7 +145,6 @@ function testCRUD(testName, driver, data){
             return drivers.database.createUser(privileges)
                 .then(function(newUser){
                     user = newUser;
-                    console.log("LOGIN")
                     return drivers.security.login({email: user.email, password: user.password})
                 })
                 .then(function(){

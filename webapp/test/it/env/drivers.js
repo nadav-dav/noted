@@ -139,6 +139,12 @@ function createNoteSearchingDrivers(drivers, namespace){
                 return res;
             });
     }
+    driver.searchByUser = function(userId){
+        return request.get.asPromise(env.url + "/services/note/user/"+userId, {json: true})
+            .spread(function (res, body) {
+                return res;
+            });
+    }
 }
 
 

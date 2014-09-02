@@ -5,7 +5,7 @@ var Respond = rek("Respond");
 var _ = require("lodash");
 
 
-function configLocationControllers(router){
+function configNoteControllers(router){
 
     router.post("/services/note/location", function(req, res){
 
@@ -28,6 +28,20 @@ function configLocationControllers(router){
     });
 
 
+    router.get("/services/note/user/:id", function(req, res){
+        var id = req.param("id");
+        makeSureUserIsLoggedIn(req, res)
+            .then(function(){
+                return Note.find.bind(Note).asPromise({user: id})
+            })
+            .then(function(results){
+                return results;
+            })
+            .then(Respond.successfullyTo(res))
+            .catch(Respond.failureTo(res))
+    });
+
+
     function makeSureUserIsLoggedIn(req, res){
         return Q()
             .then(function(){
@@ -41,5 +55,5 @@ function configLocationControllers(router){
 }
 
 module.exports = {
-    config: configLocationControllers
+    config: configNoteControllers
 };

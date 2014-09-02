@@ -22,11 +22,17 @@ function configSecurityControllers(router){
             if (err){
                 res.status(403).send();
             } else if (results && results.length === 1){
-                req.session.user = results[0];
+                var user = results[0];
+                req.session.user = user;
                 req.session.dateCreated = Date.now();
                 req.session.cookie.expires = new Date(Date.now() + hour * 10);
                 req.session.cookie.maxAge = hour;
-                res.status(200).send()
+                res.status(200).json({
+                    id: user._id,
+                    name: user.name,
+                    company: user.company,
+                    email:  user.email
+                })
             }else {
                 res.status(403).send();
             }

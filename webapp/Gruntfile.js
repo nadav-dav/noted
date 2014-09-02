@@ -48,8 +48,14 @@ module.exports = function (grunt) {
         'webapp',
         'waitServer',
         'open:server',
-        'watch:less',
-        'wait-forever'
+        'watch:less'
+    ]);
+
+
+    grunt.registerTask('api', [
+        'build',
+        'webapp',
+        'watch:statics'
     ]);
 
     grunt.registerTask('default', ['run']);

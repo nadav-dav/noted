@@ -1,5 +1,11 @@
 var mongoose = require('mongoose');
 
-var mongo = mongoose.connect('mongodb://localhost');
+var conn;
+if(process.env.NODE_ENV === "production"){
+    conn = mongoose.connect('mongodb://localhost/noted');
+}else {
+    conn = mongoose.connect('mongodb://localhost/test');
+}
 
-module.exports = mongo;
+
+module.exports = conn;
