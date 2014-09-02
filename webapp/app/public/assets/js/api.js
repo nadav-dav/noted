@@ -17,8 +17,9 @@ $(function(){
         text    :   "CONTENT",
         location:   [1,-1]
     });
-    addService("Find notes by location" ,"/services/note/location", "POST",
-        {company: "enter company's id here", location: [1, -1]});
+    addService("Find notes by location" ,"/services/note/location/:lng/:lat", "GET",
+        {location: [1, -1]}
+    );
 
     addService("Find notes by user" ,"/services/note/user/:id", "GET",
         {id: "enter user's id"}
@@ -156,6 +157,10 @@ $(function(){
         var payload = JSON.parse($payload.val());
         var endpoint = selectedService.endpoint;
             endpoint = endpoint.replace(":id", payload.id);
+        if( payload.location){
+            endpoint = endpoint.replace(":lng", payload.location[0]);
+            endpoint = endpoint.replace(":lat", payload.location[1]);
+        }
         $.ajax({
             url: endpoint,
             method: selectedService.method,

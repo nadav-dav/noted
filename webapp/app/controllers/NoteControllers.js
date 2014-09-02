@@ -7,11 +7,11 @@ var _ = require("lodash");
 
 function configNoteControllers(router){
 
-    router.post("/services/note/location", function(req, res){
+    router.get("/services/note/location/:lng/:lat", function(req, res){
 
-        var lng     = req.body.location[0];
-        var lat     = req.body.location[1];
-        var company = req.body.company;
+        var lng     = req.param("lng");
+        var lat     = req.param("lat")
+        var company = req.session.user.company;
         makeSureUserIsLoggedIn(req, res)
             .then(function(){
                 return Note.find.bind(Note).asPromise(

@@ -16,7 +16,7 @@ describe("Notes IT", function () {
             .then(function(){return createANote(Holon, "holon");})
             .then(function(){return createANote(Haifa, "haifa");})
             .then(function(){return createANote(Natanya, "natanya");})
-            .then(function(){return drivers.note.searchByGeo(user.company, TelAviv) })
+            .then(function(){return drivers.note.searchByGeo(TelAviv) })
             .then(function(res){
                 var notes = res.body;
                 assert(notes.length == 3);
