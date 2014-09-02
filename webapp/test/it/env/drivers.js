@@ -133,8 +133,8 @@ function createVotingDrivers(drivers, namespace) {
 
 function createNoteSearchingDrivers(drivers, namespace){
     var driver = drivers[namespace] = drivers[namespace] || {};
-    driver.searchByGeo = function(location){
-        return request.get.asPromise(env.url + "/services/note/location/" + location[0]+"/"+location[1], {json: true})
+    driver.searchByGeo = function(company, location){
+        return request.post.asPromise(env.url + "/services/note/location", {json: {company: company, location: location}})
             .spread(function (res, body) {
                 return res;
             });

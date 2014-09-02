@@ -7,13 +7,15 @@ var _ = require("lodash");
 
 function configLocationControllers(router){
 
-    router.get("/services/note/location/:lng/:lat", function(req, res){
-        var lng = req.param("lng");
-        var lat = req.param("lat");
+    router.post("/services/note/location", function(req, res){
+
+        var lng     = req.body.location[0];
+        var lat     = req.body.location[1];
+        var company = req.body.company;
         makeSureUserIsLoggedIn(req, res)
             .then(function(){
                 return Note.find.bind(Note).asPromise(
-                    {location: { $near : [lng, lat], $maxDistance: 30 }},
+                    {company: company, location: { $near : [lng, lat], $maxDistance: 30 }},
                     null,
                     {limit:10}
                 )
