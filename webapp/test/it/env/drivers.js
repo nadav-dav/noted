@@ -19,6 +19,7 @@ createCookiesDrivers    (drivers, "cookies");
 createDatabaseDrivers   (drivers, "database");
 createVotingDrivers     (drivers, "voting");
 createNoteSearchingDrivers(drivers, "note");
+createUserSearchingDrivers(drivers, "user");
 
 
 function createCrudDriverFor(drivers, namespace, endpoint) {
@@ -146,6 +147,19 @@ function createNoteSearchingDrivers(drivers, namespace){
             });
     }
 }
+
+
+function createUserSearchingDrivers(drivers, namespace){
+    var driver = drivers[namespace] = drivers[namespace] || {};
+    driver.searchByCompany = function(company){
+        return request.get.asPromise(env.url + "/services/user/company/:id", {json: true})
+            .spread(function (res, body) {
+                return res;
+            });
+    }
+}
+
+
 
 
 module.exports = drivers;

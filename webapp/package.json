@@ -22,10 +22,12 @@
   ],
   "dependencies": {
     "body-parser": "^1.6.6",
+    "dustjs-linkedin": "^2.4.0",
     "express": "^4.8.4",
     "express-session": "^1.7.6",
     "klei-dust": "^0.8.2",
     "lodash": "^2.4.1",
+    "mongoose": "^3.8.15",
     "morgan": "^1.2.3",
     "q": "^1.0.1",
     "rekuire": "^0.1.5"

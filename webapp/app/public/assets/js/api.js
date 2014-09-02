@@ -24,6 +24,9 @@ $(function(){
         {id: "enter user's id"}
     );
 
+    addService("Find notes of a company" ,"/services/note/company/:id", "GET",
+        {id: "enter company's id"}
+    );
 
     addSeparator("Votes");
     addCrudServicesFor("vote", "/services/vote", {
@@ -53,6 +56,9 @@ $(function(){
         name    :   "Boo Far",
         password:   "my-new-pass"
     });
+    addService("Find users of a company" ,"/services/user/company/:id", "GET",
+        {id: "enter company's id"}
+    );
 
 
 
@@ -156,7 +162,7 @@ $(function(){
             dataType: "json",
             processData: false,
             contentType: "application/json",
-            data: JSON.stringify(payload)
+            data: selectedService.method !== "GET" ? JSON.stringify(payload) : undefined
         }).done(function(data, textStatus, jqXHR) {
             jqXHR.responseText = undefined;
             $output.text(JSON.stringify(jqXHR,0,4));

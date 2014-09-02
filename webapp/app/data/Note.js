@@ -16,6 +16,9 @@ var noteSchema = new Schema({
 });
 
 noteSchema.index({ company: 1, location  : "2d" });
+noteSchema.index({ company: 1 });
+noteSchema.index({ user: 1 });
+
 var Note = conn.model('notes', noteSchema);
 
 module.exports = Note;

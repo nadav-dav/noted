@@ -9,6 +9,9 @@ var voteSchema = new Schema({
     type        :  { type: Number   , required: true }
 });
 
+voteSchema.index({ user: 1 });
+voteSchema.index({ note: 1 });
+
 var Vote = conn.model('votes', voteSchema);
 
 module.exports = Vote;

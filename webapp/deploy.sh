@@ -1,3 +1,3 @@
 npm install
 grunt build
-scp -r package.json app dist node_modules webstud@mobedu3.mtacloud.co.il:~/noted
+scp -r mockData.js package.json app dist webstud@mobedu3.mtacloud.co.il:~/noted

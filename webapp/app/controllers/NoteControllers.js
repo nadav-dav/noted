@@ -42,6 +42,20 @@ function configNoteControllers(router){
     });
 
 
+    router.get("/services/note/company/:id", function(req, res){
+        var id = req.param("id");
+        makeSureUserIsLoggedIn(req, res)
+            .then(function(){
+                return Note.find.bind(Note).asPromise({company: id})
+            })
+            .then(function(results){
+                return results;
+            })
+            .then(Respond.successfullyTo(res))
+            .catch(Respond.failureTo(res))
+    });
+
+
     function makeSureUserIsLoggedIn(req, res){
         return Q()
             .then(function(){

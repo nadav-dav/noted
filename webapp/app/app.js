@@ -34,6 +34,7 @@ var app = express();
     rek('SecurityControllers').config(app);
     rek('VotingControllers').config(app);
     rek('NoteControllers').config(app);
+    rek('UserControllers').config(app);
 
 	app.listen(app.get('port'), function () {
 		var splash = function () {/*
