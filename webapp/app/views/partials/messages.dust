@@ -20,7 +20,7 @@
 
 	<div class="col-md-12">
 		<div data-bind="foreach: messages">
-			<div class="message">
+			<div class="message-inlist">
 				<div class="image">
 					<div class="circletag">
 						<img data-bind="attr: {src: author.image}" />

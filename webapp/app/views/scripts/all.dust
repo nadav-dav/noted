@@ -1,3 +1,4 @@
 {>"scripts/map.js" /}
 {>"scripts/model.js" /}
 {>"scripts/pagesManager.js" /}
+{>"scripts/voting.js" /}

@@ -6,8 +6,8 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt qunit",
-    "start": "node app/app.js"
+    "test": "grunt test",
+    "start": "npm install && grunt build && node app/app.js"
   },
   "author": {
     "name": "Author Name",

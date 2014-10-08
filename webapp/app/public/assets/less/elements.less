@@ -5,6 +5,22 @@
     More info at: http://lesselements.com
   ---------------------------------------------------*/
 
+
+.circle(@size: 50px) {
+	.rounded(@size/2);
+	display: block;
+	width: @size;
+	height: @size;
+	background: @bright;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	img {
+		width: @size;
+		height: @size;
+	}
+}
+
 .gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
   background: @color;
   background: -webkit-gradient(linear,

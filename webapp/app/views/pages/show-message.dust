@@ -1,0 +1,6 @@
+<page id="showMessagePage">
+	<div class="container">
+		{>"partials/header" /}
+		{>"partials/message-display" /}
+	</div>
+</page>

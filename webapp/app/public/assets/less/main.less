@@ -18,7 +18,7 @@ body {
 	background-color: @white;
 	padding: 0;
 	margin: 0;
-	font-family: "Montserrat", "Arial"; 
+	font-family: "Montserrat", "Arial";
 }
 
 #header {
@@ -26,9 +26,9 @@ body {
 	color: @white;
 	height: 40px;
 	position: relative;
-	
+
 	h1 {
-		font-size: 20px;	
+		font-size: 20px;
 		margin-top: 8px;
 		.text-shadow(0, 3px, 0px, 0.2);
 	}
@@ -36,8 +36,8 @@ body {
 	.logout-btn {
 		border: 1px solid white;
 		.rounded(5px);
-		height:25px;
-		width:60px;
+		height: 25px;
+		width: 60px;
 		font-size: 10px;
 		position: absolute;
 		right: 10px;
@@ -52,10 +52,45 @@ body {
 
 .seperator {
 	background-color: @bright;
-	height:5px
+	height: 5px
 }
 
-.message {
+.message-display {
+	.content {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		min-height: 200px;
+		background: white;
+		padding: 10px;
+		.hint {
+			font-size: 16px;
+			color: @gray;
+		}
+		.text {
+			font-size: 20px;
+		}
+	}
+	.circletag {
+		.circle(40px);
+	}
+	.name {
+		color: @gray;
+		font-style: italic;
+	}
+	.voting {
+		height: 7px;
+		color: @gray;
+		font-size: 40px;
+		.upvote {
+			color: @bright
+		}
+		.downvote {
+			color: @warning
+		}
+	}
+}
+
+.message-inlist {
 	border-bottom: 1px solid @gray;
 	display: block;
 	height: 64px;
@@ -63,13 +98,13 @@ body {
 	font-size: 12px;
 
 	.image {
-		float:left;
+		float: left;
 		display: block;
 		padding-left: 10px;
 		padding-top: 6px;
 	}
 	.content {
-		float:left;	
+		float: left;
 		padding-left: 10px;
 		padding-top: 4px;
 
@@ -78,28 +113,16 @@ body {
 			white-space: nowrap;
 		}
 		.hint {
-			color: @gray;	
+			color: @gray;
 			white-space: nowrap;
 		}
 		.text {
-			color: @bright;	
+			color: @bright;
 			white-space: nowrap;
 		}
 	}
 	.circletag {
-		@size: 50px;
-		.rounded(25px);
-	    display: block;
-	    width: @size;
-	    height: @size;
-	    background: @bright;
-	    background-position:50% 50%;
-	    background-repeat:no-repeat;
-	    overflow: hidden;
-	    img {
-		    width: @size;
-	    	height: @size;
-		}    
+		.circle(50px)
 	}
 }
 
@@ -114,7 +137,7 @@ body {
 			.text-shadow(0, 3px, 0px, 0.2);
 		}
 		.front {
-			color: @white;	
+			color: @white;
 		}
 	}
 
@@ -137,7 +160,7 @@ body {
 			border-top-right-radius: 0px;
 			border-top-left-radius: 0px;
 		}
-	}	
+	}
 	button {
 		width: 100%;
 		height: 60px;
