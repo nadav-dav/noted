@@ -3,3 +3,5 @@
 {>"scripts/pagesManager.js" /}
 {>"scripts/voting.js" /}
 {>"scripts/user.dust" /}
+{>"scripts/md5.js" /}
+{>"scripts/gravatar.js" /}
