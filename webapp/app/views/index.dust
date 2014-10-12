@@ -26,19 +26,17 @@
         {>"scripts/all" /}    
 
         require(['pagesManager'], function (pagesManager) {
-            pagesManager.show("showMessagePage");
+            pagesManager.show("loginPage");
         })
     </script>
 
     <title>Noted</title>
 </head>
 <body>
-<div>
-    {>"pages/login" /}
-    {>"pages/messages" /}
-    {>"pages/message-display" /}
-    {>"pages/message-creation" /}
-</div>
+{>"pages/login" /}
+{>"pages/messages" /}
+{>"pages/message-display" /}
+{>"pages/message-creation" /}
 </body>
 </html>
 

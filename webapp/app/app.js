@@ -25,9 +25,6 @@ var app = express();
     app.use     (bodyParser.urlencoded({ extended: false }));
     app.use     (bodyParser.json());
 
-	app.get('/', function  (req, res) {
-	    res.render('index');
-	});
 
     // CONTROLLERS
     rek('CrudControllers').config(app);
@@ -35,6 +32,7 @@ var app = express();
     rek('VotingControllers').config(app);
     rek('NoteControllers').config(app);
     rek('UserControllers').config(app);
+    rek('MainControllers').config(app);
 
 	app.listen(app.get('port'), function () {
 		var splash = function () {/*

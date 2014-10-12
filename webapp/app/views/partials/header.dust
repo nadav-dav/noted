@@ -6,10 +6,14 @@
 </div>
 
 <script type="text/javascript">
-	require(["pagesManager", "model"], function (pagesManager, model){
+	require(["pagesManager", "model", "user"], function (pagesManager, model, user){
 		$(".logout-btn").click(function () {
-			pagesManager.show("loginPage");
-			model.header_logout = false;
+            $.ajax({url:"/services/logout", type:"delete"})
+            .done(function(){
+                pagesManager.show("loginPage");
+                model.header_logout(false);
+                user.logout();
+            })
 		})
 	})
 </script>

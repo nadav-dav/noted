@@ -7,7 +7,8 @@
   },
   "scripts": {
     "test": "grunt test",
-    "start": "npm install && grunt build && node app/app.js"
+    "start": "npm install && grunt build && node app/app.js",
+    "production": "export NODE_ENV=production; npm start"
   },
   "author": {
     "name": "Author Name",

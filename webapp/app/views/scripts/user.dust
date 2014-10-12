@@ -1,0 +1,12 @@
+define("user", [], function () {
+    var user = {};
+    {#user}
+    user.loggedIn = true;
+    user.email = "{email}";
+    {/user}
+    user.logout = function(){
+        user.loggedIn = false;
+        user.email = undefined;
+    };
+    return user;
+});

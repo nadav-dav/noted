@@ -20,6 +20,7 @@ function configSecurityControllers(router){
 
         User.find({email: email, password: password}, function(err, results){
             if (err){
+                console.error(err.stack || err);
                 res.status(403).send();
             } else if (results && results.length === 1){
                 var user = results[0];

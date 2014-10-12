@@ -2,3 +2,4 @@
 {>"scripts/model.js" /}
 {>"scripts/pagesManager.js" /}
 {>"scripts/voting.js" /}
+{>"scripts/user.dust" /}
