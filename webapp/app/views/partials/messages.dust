@@ -1,20 +1,68 @@
 <div class="row">
 	<script type="text/javascript">
-		require(["model"], function (model) {
-			for(var i=0; i< 20; i++){
-				model.messages.push(
-					{ 
-						author: 	{
-							name: 	"John",
-							image: 	"http://www.gravatar.com/avatar/91028d05ccc7d53a8d765930637b4886"
-						},
-						hint: 		"Hint place",
-						shortMsg: 	"This is great ide...",
-						lng: 		1,
-						lat: 		1
-					}
-				);
+		require(["model","map-list", "gravatar"], function (model, map, gravatar) {
+			var markers = [];
+			function getMessages (location) {
+				$.get("/services/note/location/"+location.lng+"/"+location.lat, function (data) {
+					model.messages.removeAll()
+					data.forEach(function (msg) {
+						model.messages.push({
+							author: {
+								image: gravatar(msg.email)
+							},
+							hint: 		msg.hint,
+							shortMsg: 	msg.text,
+							text: 		msg.text,
+							lng: 		msg.location[1],
+							lat: 		msg.location[0]
+						})
+					})
+				});
 			}
+
+			function getLocation(callback){
+				navigator.geolocation.getCurrentPosition(function GetLocation(location) {
+				    callback({
+				    	lng: location.coords.longitude, 
+				    	lat: location.coords.latitude
+				    });
+				});
+			}
+
+			google.maps.event.addListener(map, 'dragend', function() {
+				getMessages({
+					lat: map.getCenter().lat(),
+					lng: map.getCenter().lng()
+				});
+			});
+
+			model.messages.subscribe(function (messages) {
+				removeAllMarkers();
+				messages.forEach(function (msg) {
+					addMarker({lat: msg.lat, lng: msg.lng} , msg.text);
+				})
+			})
+
+			function addMarker (pos, title) {
+				var marker = new google.maps.Marker({
+				    position: new google.maps.LatLng(pos.lat, pos.lng),
+				    map: map,
+				    title: title
+				});
+				markers.push(marker);
+			}
+
+			function removeAllMarkers () {
+				markers.forEach(function (marker) {
+					marker.setMap(null);
+				});
+				markers = [];
+			}
+
+			getLocation(function (location) {
+				map.setCenter(new google.maps.LatLng(location.lat, location.lng));
+				getMessages(location);
+			})
 		})
 	</script>
 
@@ -27,7 +75,6 @@
 					</div>
 				</div>
 				<div class="content">
-					<div class="name" data-bind="text: author.name"></div>
 			        <div class="hint" data-bind="text: hint"></div>
 			        <div class="text" data-bind="text: shortMsg"></div>
 				</div>		        

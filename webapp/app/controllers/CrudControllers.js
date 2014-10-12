@@ -54,6 +54,7 @@ function configServicesController(router){
         preprocessInsertedData: function(payload, session){
             return {
                 user: editableOnlyByStaff(session, session.user._id, payload.user),
+                email: editableOnlyByStaff(session, session.user.email, payload.user),
                 company: editableOnlyByStaff(session, session.user.company, payload.company),
                 location: payload.location,
                 hint: payload.hint,

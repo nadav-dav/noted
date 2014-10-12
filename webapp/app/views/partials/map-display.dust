@@ -1,6 +1,6 @@
 <div class="row">
 	<script type="text/javascript">
-		require(['map','model'], function (Map, model) {
+		define('map-display',['map','model'], function (Map, model) {
 			var map = Map('map-display');
 			model.selected_message.lat.subscribe(relocate);
 			model.selected_message.lng.subscribe(relocate);
@@ -10,6 +10,8 @@
 			relocate();
 
 			map.setOptions({mapTypeControl:false})
+
+			return map;
 		});
 	</script>
 	<div id="map-display" class="map col-md-12"></div>

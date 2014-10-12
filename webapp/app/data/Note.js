@@ -6,6 +6,7 @@ var ObjectId = Schema.ObjectId;
 var noteSchema = new Schema({
     company     :  { type: ObjectId , required: true },
     user        :  { type: ObjectId , required: true },
+    email       :  { type: String, required: true},
     upvotes     :  { type: Number , default: 0 },
     downvotes   :  { type: Number , default: 0 },
     hint        :  { type: String, required: false},
