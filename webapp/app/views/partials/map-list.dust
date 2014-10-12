@@ -1,0 +1,8 @@
+<div class="row">
+	<script type="text/javascript">
+		require(['map'], function (Map) {
+			var map = Map('map-list');
+		});
+	</script>
+	<div id="map-list" class="map col-md-12"></div>
+</div>

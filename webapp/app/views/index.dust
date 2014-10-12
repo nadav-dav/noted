@@ -36,7 +36,8 @@
 <div>
     {>"pages/login" /}
     {>"pages/messages" /}
-    {>"pages/show-message" /}
+    {>"pages/message-display" /}
+    {>"pages/message-creation" /}
 </div>
 </body>
 </html>

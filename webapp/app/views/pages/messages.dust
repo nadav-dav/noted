@@ -1,7 +1,7 @@
 <page id="messagesPage">
 	<div class="container">
 		{>"partials/header" /}
-		{>"partials/map" /}
+		{>"partials/map-list" /}
 		{>"partials/seperator" /}
 		{>"partials/messages" /}
 	</div>

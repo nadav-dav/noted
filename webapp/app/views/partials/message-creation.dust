@@ -1,0 +1,20 @@
+<div class="row">
+	<script type="text/javascript">
+		
+	</script>
+
+	<div class="col-md-12">
+		<form role="form">
+			<div class="message-creation">
+			    <div class="content">
+			    	<div class="form-group">
+			    		<input class="form-control" type="text" name="hint" placeholder="Where exactly are you?"/>
+			    		<textarea class="form-control" name="text" placeholder="What note do you want to leave here?"></textarea>
+			    		<button type="submit" class="btn btn-default btn-success">Submit</button>
+			    	</div>
+			    </div>
+			    <hr></hr>  
+			</div>
+		</form>
+	</div>
+</div>

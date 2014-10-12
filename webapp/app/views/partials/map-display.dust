@@ -1,0 +1,16 @@
+<div class="row">
+	<script type="text/javascript">
+		require(['map','model'], function (Map, model) {
+			var map = Map('map-display');
+			model.selected_message.lat.subscribe(relocate);
+			model.selected_message.lng.subscribe(relocate);
+			function relocate () {
+				map.setOptions({center:new google.maps.LatLng(model.selected_message.lat(), model.selected_message.lng())})
+			}
+			relocate();
+
+			map.setOptions({mapTypeControl:false})
+		});
+	</script>
+	<div id="map-display" class="map col-md-12"></div>
+</div>

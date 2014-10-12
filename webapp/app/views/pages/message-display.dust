@@ -1,6 +1,8 @@
 <page id="showMessagePage">
 	<div class="container">
 		{>"partials/header" /}
+		{>"partials/map-display" /}
+		{>"partials/seperator" /}
 		{>"partials/message-display" /}
 	</div>
 </page>

@@ -1,0 +1,8 @@
+<page id="createMessagePage">
+	<div class="container">
+		{>"partials/header" /}
+		{>"partials/map-creation" /}
+		{>"partials/seperator" /}
+		{>"partials/message-creation" /}
+	</div>
+</page>

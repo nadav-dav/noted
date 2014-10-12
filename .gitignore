@@ -1,6 +1,7 @@
 **/*.iml
 **/.idea
 **/.DS_Store
+**/*.log
 webapp/dist/
 webapp/app/components
 webapp/node_modules
