@@ -1,16 +1,7 @@
 <div class="row">
 	<script type="text/javascript">
-		require(["model"], function (model) {
-			model.selected_message.author.name("John");
-			model.selected_message.author.image("http://www.gravatar.com/avatar/91028d05ccc7d53a8d765930637b4886");
-			model.selected_message.hint("Hint place3");
-			model.selected_message.text("Blah Blah Blaahhhhhhhhhhh");
-			model.selected_message.lat(35.1017477);
-			model.selected_message.lng(33.0894496);
-			model.selected_message.isUpvoted(true);
-			model.selected_message.isDownvoted(false);
-			model.selected_message.upvoteCount(10);
-            model.selected_message.downvoteCount(3);
+		require(["map-display"], function (model, map) {
+			
 		})
 	</script>
 

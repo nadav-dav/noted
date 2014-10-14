@@ -3,10 +3,12 @@ define("user", [], function () {
     {#user}
     user.loggedIn = true;
     user.email = "{email}";
+    user.id = "{_id}";
     {/user}
     user.logout = function(){
         user.loggedIn = false;
         user.email = undefined;
+        user.id = undefined;
     };
     return user;
 });

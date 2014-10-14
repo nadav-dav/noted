@@ -13,7 +13,7 @@
                   <span>An error has occurred.<br/>Please check your email and password</span>
                 </div>
                 <div class="input-group-lg inputs">
-				  <input id="email" type="text" class="form-control" placeholder="Email">
+				  <input id="email" type="email" class="form-control" placeholder="Email">
 				  <input id="password" type="password" class="form-control" placeholder="Password">
 				</div>
 				<button id="login" class="btn btn-default full-width"><span class="glyphicon glyphicon-ok"></span></button>
@@ -23,7 +23,7 @@
 </page>
 
 <script type="text/javascript">
-	require(['pagesManager','model','user'],function (pagesManager, model, user) {
+	require(['model','user'],function (model, user) {
 		var loginBtn = $("#loginPage button#login");
 		var email = $("#loginPage input#email");
 		var password = $("#loginPage input#password");
@@ -42,11 +42,13 @@
 		function loginFailed () {
 			error.show();			
 		}
-		function loginSuccess () {
+		function loginSuccess (userData) {
+			if(userData){
+				user.email = userData.email;
+		    	user.id = userData.id;	
+			}
 		    user.loggedIn = true;
-		    user.email = email.val();
-			model.header_logout(true);
-			pagesManager.show("messagesPage");
+			model.showPage("messagesPage");
 			error.hide();
 		}
 	})

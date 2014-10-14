@@ -2,18 +2,23 @@
 	<div class="col-md-12 text-center">
 		<h1 data-bind="text: header_title"> Loading ... </h1>
 		<button data-bind="visible: header_logout" class="logout-btn" type="button">logout</button>
+		<button data-bind="visible: header_back" class="back-btn" type="button">back</button>
+
 	</div>
 </div>
 
 <script type="text/javascript">
-	require(["pagesManager", "model", "user"], function (pagesManager, model, user){
+	require(["model", "user"], function (model, user){
 		$(".logout-btn").click(function () {
             $.ajax({url:"/services/logout", type:"delete"})
             .done(function(){
-                pagesManager.show("loginPage");
-                model.header_logout(false);
+                model.showPage("loginPage");
                 user.logout();
             })
+		})
+
+		$(".back-btn").click(function () {
+         	model.showPage("messagesPage");
 		})
 	})
 </script>

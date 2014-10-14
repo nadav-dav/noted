@@ -12,6 +12,19 @@ describe("Voting IT", function () {
         ResetDatabase().then(done);
     });
 
+    it("should be allowed to vote, change it, and cancel the vote", function(done){
+        createAUserAndANote()
+            .then(function(){ return drivers.voting.upvote(note._id) })
+            .then(function(){ return drivers.note.getById(note._id)})
+            .then(function(res){
+                assert(res.body.upvotes === 1);
+            })
+
+
+            .then(function(){done()})
+            .catch(done);
+    });
+
     it("should be able to vote for a note, and get messages", function (done) {
         createAUserAndANote()
             .then(function(){ return drivers.voting.upvote(note._id) })

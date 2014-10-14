@@ -43,6 +43,18 @@ textarea {
 		.text-shadow(0, 3px, 0px, 0.2);
 	}
 
+	.back-btn  {
+		border: 1px solid white;
+		.rounded(5px);
+		height: 25px;
+		width: 60px;
+		font-size: 10px;
+		position: absolute;
+		left: 10px;
+		top: 0px;
+		background-color: @bright;
+	}
+
 	.logout-btn {
 		border: 1px solid white;
 		.rounded(5px);
@@ -58,6 +70,13 @@ textarea {
 
 .map {
 	height: 200px;
+	img {
+		max-width: none;
+	}
+}
+
+#map-display {
+	// pointer-events:none;
 }
 
 .seperator {

@@ -5,3 +5,5 @@
 {>"scripts/user.dust" /}
 {>"scripts/md5.js" /}
 {>"scripts/gravatar.js" /}
+{>"scripts/location.js" /}
+{>"scripts/messaging.js" /}

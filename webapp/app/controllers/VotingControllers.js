@@ -81,10 +81,14 @@ function configVotingControllers(router){
     function changeExistingVote(data){
         return Vote.update.bind(Vote).asPromise({user: data.user, note: data.note}, {type: data.type})
             .then(function(){
-                if (data.type === 1)
-                    return Note.update.bind(Note).asPromise({_id: data.note}, {$inc: {upvotes:1, downvotes:-1}});
-                else
-                    return Note.update.bind(Note).asPromise({_id: data.note}, {$inc: {upvotes:-1, downvotes:1}});
+                if (data.type == 1){
+                    console.log(1);
+                    return Note.update.bind(Note).asPromise({_id: data.note}, {$inc: {upvotes:+1, downvotes:-1}});
+                }else{
+                    console.log(-1);
+                    return Note.update.bind(Note).asPromise({_id: data.note}, {$inc: {upvotes:-1, downvotes:+1}});
+                }
+
             })
     }
 

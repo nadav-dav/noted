@@ -1,36 +1,10 @@
 <div class="row">
 	<script type="text/javascript">
-		require(["model","map-list", "gravatar"], function (model, map, gravatar) {
+		require(["model","map-list", "pagesManager","location"], function (model, map, pagesManager, location, messaging) {
 			var markers = [];
-			function getMessages (location) {
-				$.get("/services/note/location/"+location.lng+"/"+location.lat, function (data) {
-					model.messages.removeAll()
-					data.forEach(function (msg) {
-						model.messages.push({
-							author: {
-								image: gravatar(msg.email)
-							},
-							hint: 		msg.hint,
-							shortMsg: 	msg.text,
-							text: 		msg.text,
-							lng: 		msg.location[1],
-							lat: 		msg.location[0]
-						})
-					})
-				});
-			}
-
-			function getLocation(callback){
-				navigator.geolocation.getCurrentPosition(function GetLocation(location) {
-				    callback({
-				    	lng: location.coords.longitude, 
-				    	lat: location.coords.latitude
-				    });
-				});
-			}
 
 			google.maps.event.addListener(map, 'dragend', function() {
-				getMessages({
+				model.updateMessages({
 					lat: map.getCenter().lat(),
 					lng: map.getCenter().lng()
 				});
@@ -39,7 +13,10 @@
 			model.messages.subscribe(function (messages) {
 				removeAllMarkers();
 				messages.forEach(function (msg) {
-					addMarker({lat: msg.lat, lng: msg.lng} , msg.text);
+					var marker = addMarker({lat: msg.lat, lng: msg.lng} , msg.text);
+					google.maps.event.addListener(marker, 'click', function () {
+						model.openMessage(msg._id);
+					})
 				})
 			})
 
@@ -50,6 +27,7 @@
 				    title: title
 				});
 				markers.push(marker);
+				return marker;
 			}
 
 			function removeAllMarkers () {
@@ -59,9 +37,9 @@
 				markers = [];
 			}
 
-			getLocation(function (location) {
+			model.updateMessages();
+			location.getLocation(function (location) {
 				map.setCenter(new google.maps.LatLng(location.lat, location.lng));
-				getMessages(location);
 			})
 		})
 	</script>
@@ -71,7 +49,7 @@
 			<div class="message-inlist">
 				<div class="image">
 					<div class="circletag">
-						<img data-bind="attr: {src: author.image}" />
+						<img data-bind="attr: {src: author.image}, click: function(){$root.openMessage(_id)}"/>
 					</div>
 				</div>
 				<div class="content">

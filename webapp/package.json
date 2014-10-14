@@ -6,7 +6,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt test",
+    "test": "export NODE_ENV=test; grunt test",
     "start": "npm install && grunt build && node app/app.js",
     "production": "export NODE_ENV=production; npm start"
   },
