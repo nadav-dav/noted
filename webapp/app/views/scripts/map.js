@@ -30,7 +30,9 @@ define("map", [], function () {
 
 		setInterval(function () {
 			getLocation(function (location) {
-				positionMarker.setPosition(new google.maps.LatLng(location.lat, location.lng))
+				positionMarker.setPosition(new google.maps.LatLng(location.lat, location.lng));
+				// this fixes the cut-off bug in google maps api
+				google.maps.event.trigger(map, 'idle');
 			})						
 		}, 1000);
 		return map;

@@ -12,20 +12,26 @@ define("messaging",['location','gravatar'], function (location, gravatar, pagesM
 			function getMessages (location) {
 				$.get("/services/note/location/"+location.lng+"/"+location.lat, function (data) {
 					model.messages.removeAll()
-					data.forEach(function (msg) {
+					data.reverse().forEach(function (msg) {
 						model.messages.push({
 							_id: msg._id,
 							author: {
 								image: gravatar(msg.email)
 							},
 							hint: 		msg.hint,
-							shortMsg: 	msg.text,
+							shortMsg: 	trimString(msg.text, 100),
 							text: 		msg.text,
 							lng: 		msg.location[1],
 							lat: 		msg.location[0]
 						})
 					})
 				});
+
+				function trimString (str, len){
+				  return (str.length > len) 
+				    ? jQuery.trim(str).substring(0, len).split(" ").slice(0, -1).join(" ") + "..."
+				    : str;
+				};
 			}
 		},
 		openMessage: function (model, id){
@@ -56,6 +62,14 @@ define("messaging",['location','gravatar'], function (location, gravatar, pagesM
 			        });
 				})
 			})
+		},
+		createNewMessage: function(model){
+			var selected = model.selected_message;
+			location.getLocation(function (currentLocation) {
+				selected.lat(currentLocation.lat);
+				selected.lng(currentLocation.lng);
+			})	
+			model.showPage('createMessagePage');
 		}
 	}
 })

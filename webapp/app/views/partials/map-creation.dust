@@ -1,16 +1,30 @@
 <div class="row">
 	<script type="text/javascript">
-		require(['map','model'], function (Map, model) {
+		define('map-creation', ['map','model','location'], function (Map, model, location) {
 			var map = Map('map-creation');
-			model.selected_message.lat.subscribe(relocate);
-			model.selected_message.lng.subscribe(relocate);
-			function relocate () {
-				map.setOptions({center:new google.maps.LatLng(model.selected_message.lat(), model.selected_message.lng())})
-			}
-			relocate();
+			var selected = model.selected_message
+			selected.lat.subscribe(updateMapLocation);
+			selected.lng.subscribe(updateMapLocation);
+			google.maps.event.addListener(map, 'center_changed', updateMarkerPosition);
+			google.maps.event.addListener(map, 'click', function(e){
+				map.setCenter(e.latLng);
+			});
+			var marker = new google.maps.Marker({map: map});
 
-			map.setOptions({mapTypeControl:false})
+			function updateMarkerPosition () {
+				marker.setPosition(map.getCenter());
+			}
+			function updateMapLocation () {
+				setTimeout(function () {
+					google.maps.event.addListenerOnce(map, 'idle', function () {
+						map.setCenter(new google.maps.LatLng(selected.lat(), selected.lng()));
+						updateMarkerPosition();
+					});
+				},1000)
+			}
+			return map;
 		});
+		require(['map-creation'],function(){});
 	</script>
 	<div id="map-creation" class="map col-md-12"></div>
 </div>

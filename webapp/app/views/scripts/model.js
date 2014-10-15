@@ -23,7 +23,8 @@ define("model", ['ko', 'jquery', 'voting', 'messaging','pagesManager'], function
         downvote: function(){ voting.downvote(this); },
         updateMessages: function (location) { messaging.updateMessages(this, location) },
         openMessage: function (id) { messaging.openMessage(this, id) },
-        showPage: function(pageName) { pagesManager.show(this, pageName); }
+        showPage: function(pageName) { pagesManager.show(this, pageName); },
+        createNewMessage: function(){ messaging.createNewMessage(this); }
     };
 
     ko.applyBindings(model);

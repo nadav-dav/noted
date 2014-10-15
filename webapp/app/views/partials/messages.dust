@@ -38,13 +38,21 @@
 			}
 
 			model.updateMessages();
+			setInterval(function () {
+				model.updateMessages()
+			}, 60*1000);	
+
 			location.getLocation(function (location) {
-				map.setCenter(new google.maps.LatLng(location.lat, location.lng));
+				google.maps.event.addListenerOnce(map, 'idle', function () {
+					map.setCenter(new google.maps.LatLng(location.lat, location.lng));
+				});
 			})
 		})
 	</script>
 
 	<div class="col-md-12">
+		<button type="submit" class="btn btn-default btn-success" data-bind="click: createNewMessage;">Create a new note </button>
+		<hr/>
 		<div data-bind="foreach: messages">
 			<div class="message-inlist">
 				<div class="image">

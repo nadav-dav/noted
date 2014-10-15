@@ -1,10 +1,30 @@
 <div class="row">
 	<script type="text/javascript">
-
+		require(['map-creation','model'], function (map, model) {
+			var hint =  $("#createMessagePage input[name=hint]")
+			var text =  $("#createMessagePage textarea[name=text]")
+				
+			$('#createMessagePage form').submit(function () {
+				var location = map.getCenter();
+				$.ajax("/services/note", {
+				    data : JSON.stringify({
+					    "hint": hint.val(),
+					    "text": text.val(),
+					    "location": [location.lat(),location.lng()]
+					}),
+				    contentType : 'application/json',
+				    type : 'POST'
+				}).done(function () {
+					model.updateMessages();
+					model.showPage("messagesPage");
+				})
+				return false;
+			})	
+		})
 	</script>
 
 	<div class="col-md-12">
-		<form role="form">
+		<form role="form" onSubmit="return false;">
 			<div class="message-creation">
 			    <div class="content">
 			    	<div class="form-group">

@@ -15,6 +15,7 @@
 			
 			return map;
 		});
+		require(["map-display"], function () {})
 	</script>
 	<div id="map-display" class="map col-md-12"></div>
 </div>

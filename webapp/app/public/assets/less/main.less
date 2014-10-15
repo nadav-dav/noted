@@ -75,10 +75,6 @@ textarea {
 	}
 }
 
-#map-display {
-	// pointer-events:none;
-}
-
 .seperator {
 	background-color: @bright;
 	height: 5px
@@ -94,9 +90,11 @@ textarea {
 		.hint {
 			font-size: 16px;
 			color: @gray;
+			white-space: pre-wrap;
 		}
 		.text {
 			font-size: 20px;
+			white-space: pre-wrap;
 		}
 	}
 	.circletag {
@@ -140,9 +138,19 @@ textarea {
 		height: 300px;
 		padding:5px;
 	}
-	.btn {
-		margin-top: 10px;
-		width: 100%;
+}
+
+.btn {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+}
+.btn-success {
+	background-color: @bright;
+	border-color: @white;
+	&:hover, &:active, &:focus { 
+		background-color: @bright; 
+		border-color: white;		
 	}
 }
 
@@ -171,10 +179,12 @@ textarea {
 		.hint {
 			color: @gray;
 			white-space: nowrap;
+			width:100px;
 		}
 		.text {
 			color: @bright;
 			white-space: nowrap;
+			width:100px;
 		}
 	}
 	.circletag {

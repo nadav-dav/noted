@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
 	require(["model", "user"], function (model, user){
-		$(".logout-btn").click(function () {
+		$("#header .logout-btn").click(function () {
             $.ajax({url:"/services/logout", type:"delete"})
             .done(function(){
                 model.showPage("loginPage");
@@ -17,7 +17,7 @@
             })
 		})
 
-		$(".back-btn").click(function () {
+		$("#header .back-btn").click(function () {
          	model.showPage("messagesPage");
 		})
 	})
