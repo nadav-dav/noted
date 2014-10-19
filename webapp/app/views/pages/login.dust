@@ -39,6 +39,7 @@
 			$.post("/services/login",{email: email.val(), password: password.val()})
 				.done(loginSuccess)
 				.fail(loginFailed)
+			return false;
 		});
 
 		function loginFailed () {
